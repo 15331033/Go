@@ -14,4 +14,4 @@
 in_filename 可选，读入的文件，若不选则从标准流输入</br>
 
 #### 说明
-本次代码中使用cat命令代替测试，如果有打印机可把对应cat命令那行代码注释掉，把其上面一行代码从注释变成代码
+类似实验报告的文档请看我博客 http://blog.csdn.net/caijhBlog/article/details/78265811

@@ -106,8 +106,8 @@ func main() {
 	myReader := bufio.NewReader(inputStream)
 	stdin = os.Stdout
 	if printDest.Size() > 0 && pDest != "" {
-		printer = exec.Command("lp", "-d", pDest)
-		//printer = exec.Command("cat")
+		//printer = exec.Command("lp", "-d", pDest)
+		printer = exec.Command("cat")
 		stdin, printErr = printer.StdinPipe()
 		if printErr != nil {
 			fmt.Fprintf(os.Stderr, "%s : ", programname)
