@@ -2,10 +2,11 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"io"
 	"os"
 	"os/exec"
-	"fmt"
+	"time"
 )
 
 const INBUFSIZ = 16 * 1024
@@ -105,8 +106,8 @@ func main() {
 	myReader := bufio.NewReader(inputStream)
 	stdin = os.Stdout
 	if printDest.Size() > 0 && pDest != "" {
-		//printer = exec.Command("lp", "-d", pDest)
-		printer = exec.Command("cat", "-n")
+		printer = exec.Command("lp", "-d", pDest)
+		//printer = exec.Command("cat")
 		stdin, printErr = printer.StdinPipe()
 		if printErr != nil {
 			fmt.Fprintf(os.Stderr, "%s : ", programname)
@@ -123,7 +124,16 @@ func main() {
 		}
 		stdin.Close()
 		printer.Stdout = os.Stdout
-		printer.Start()
+		printer.Stderr = os.Stderr
+		if err = printer.Start(); err != nil {
+			fmt.Fprintf(os.Stderr, "%s : ", programname)
+			fmt.Fprintln(os.Stderr, printErr)
+		}
+		timer := time.AfterFunc(3*time.Second, func() {
+			printer.Process.Kill()
+		})
+		err = printer.Wait()
+		timer.Stop()
 	}
 	if *pageType {
 		err = writeIntoPrintInByF(myReader, *startPage, *endPage)
