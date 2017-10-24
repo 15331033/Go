@@ -2,7 +2,7 @@
 ####CLI 命令行实用程序开发实战 - Agenda
 ##### 说明：目前数据持久化由于遇到json不能转小写成员，在利用反射转的过程bug还未解决故部分代码注释了
 ##### 1.按 3.3 安装 cobra 并完成小案例
-安装:
+安装 :
 1.使用命令 go get -v github.com/spf13/cobra/cobra 
 下载过程中，会出提示如下错误
 Fetching https://golang.org/x/sys/unix?go-get=1
