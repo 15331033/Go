@@ -2,7 +2,7 @@ package test
 
 import (
 	"testing"
-	"Go/agenda/entity"
+	"github.com/caijh23/Go/agenda/entity"
 )
 
 func TestIsParticipator(t *testing.T) {
