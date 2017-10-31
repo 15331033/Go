@@ -16,7 +16,7 @@ package cmd
 
 import (
 
-	"github.com/caijh23/Go/agenda/entity"
+	"Go/agenda/entity"
 	"github.com/spf13/cobra"
 	"os"
 )
