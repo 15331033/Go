@@ -15,7 +15,6 @@
 package cmd
 
 import (
-	"fmt"
 
 	"Go/agenda/entity"
 	"github.com/spf13/cobra"
@@ -27,10 +26,10 @@ var queryCmd = &cobra.Command{
 	Short: "To query all account",
 	Long:  `To query all account and show the username, email and phone`,
 	Run: func(cmd *cobra.Command, args []string) {
-		s := &entity.Storage
+		s := entity.GetStorage()
 		userList := s.QueryUser(getAll)
 		for _, v := range userList {
-			fmt.Println("username: " + (&v).GetUsername() + " email: " + (&v).GetEmail() + " telephone: " + (&v).GetPhone())
+			entity.Info.Println("username: " + (&v).GetUsername() + " email: " + (&v).GetEmail() + " telephone: " + (&v).GetPhone())
 		}
 	},
 }

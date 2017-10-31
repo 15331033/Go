@@ -18,10 +18,13 @@ type jsonData struct {
 	MeetingList string
 }
 var m_dirty bool
-var Storage storage
+var sStorage storage
 
+func GetStorage() *storage{
+	return &sStorage
+}
 func init() {
-	Storage.readFromFile()
+	sStorage.readFromFile()
 	//runtime.SetFinalizer(&Storage,Storage.writeToFile())
 }
 
@@ -170,7 +173,7 @@ func (s *storage) DeleteMeeting(filter func(t_meeting Meeting) bool) {
 	}
 }
 func (s *storage) readFromFile() bool {
-	/*inputStream, inputErr := os.Open("../src/Go/agenda/data/storage.json")
+	/*inputStream, inputErr := os.Open("storage.json")
 	if inputErr != nil {
 		fmt.Println("openFileError : ",inputErr)
 		return false
@@ -198,13 +201,13 @@ func (s *storage) writeToFile() bool {
 		fmt.Println("write : JsonTranslateError : ",err)
 		return false
 	}
-	outputStream, outputErr := os.OpenFile("../src/Go/agenda/data/storage.json",os.O_WRONLY|os.O_CREATE, 0666)
+	outputStream, outputErr := os.OpenFile("storage.json",os.O_WRONLY|os.O_CREATE, 0666)
 	if outputErr != nil {
 		fmt.Println("openFileErr : ",outputErr)
 		return false
 	}
 	defer outputStream.Close()
-	writeErr := ioutil.WriteFile("../src/Go/agenda/data/storage.json",jsonObj,0x644)
+	writeErr := ioutil.WriteFile("storage.json",jsonObj,0x644)
 	if writeErr != nil {
 		fmt.Println("writeFileErr : ",writeErr)
 		return false

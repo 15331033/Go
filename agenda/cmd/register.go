@@ -15,7 +15,6 @@
 package cmd
 
 import (
-	"fmt"
 
 	"Go/agenda/entity"
 	"github.com/spf13/cobra"
@@ -35,18 +34,18 @@ var registerCmd = &cobra.Command{
 		tempErr := []error{err1, err2, err3, err4}
 		isempty := outPutErr(tempErr)
 		if !isempty {
-			fmt.Println("Register Fail!")
+			entity.Error.Println("Register Fail!")
 			os.Exit(1)
 		}
 		ifNull(username, password, email, phone)
 		ifExist(username)
 		var tempUser entity.User
 		tempUser.SetUser(username, password, email, phone)
-		s := &entity.Storage
+		s := entity.GetStorage()
 		s.CreatUser(tempUser)
 
-		fmt.Println("Register Success!")
-		fmt.Println("Your information is\nusername: " + username + "\npassword: " + password + "\nemail: " + email + "\ntelephone: " + phone)
+		entity.Info.Println("Register Success!")
+		entity.Info.Println("Your information is\nusername: " + username + "\npassword: " + password + "\nemail: " + email + "\ntelephone: " + phone)
 	},
 }
 
@@ -58,34 +57,34 @@ func ifNull(u string, p string, e string, t string) {
 	i := 0
 	err := ""
 	if u == "" {
-		err += "\nYou must input your name."
+		err += " name"
 		i += 1
 	}
 	if p == "" {
-		err += "\nYou must input your phone."
+		err += " password"
 		i += 1
 	}
 	if e == "" {
-		err += "\nYou must input your email."
+		err += " email"
 		i += 1
 	}
 	if t == "" {
-		err += "\nYou must input your phone."
+		err += " phone."
 		i += 1
 	}
 	if i != 0 {
-		fmt.Println("Register Fail!" + err)
+		entity.Error.Println("Register Fail! Lack of" + err)
 		os.Exit(2)
 	}
 }
 
 func ifExist(u string) {
-	s := &entity.Storage
+	s := entity.GetStorage()
 	userList := s.QueryUser(getAll)
 	for _, v := range userList {
 		if (&v).GetUsername() == u {
-			fmt.Println("Register Fail!")
-			fmt.Println("Your name " + u + " is already exist.")
+			entity.Error.Println("Register Fail!")
+			entity.Error.Println("Your name " + u + " is already exist.")
 			os.Exit(3)
 		}
 	}
@@ -94,7 +93,7 @@ func ifExist(u string) {
 func outPutErr(errs []error) bool {
 	for _, value := range errs {
 		if value != nil {
-			fmt.Println(value)
+			entity.Error.Println(value)
 			return false
 		}
 	}
@@ -108,12 +107,4 @@ func init() {
 	registerCmd.Flags().StringP("email", "e", "", "the email,,it should be empty")
 	registerCmd.Flags().StringP("phone", "t", "", "your phone,it should not be empyt")
 	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// registerCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// registerCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
