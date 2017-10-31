@@ -2,26 +2,26 @@
 ##### 说明：目前数据持久化由于遇到json不能转小写成员，在利用反射转的过程bug还未解决故部分代码注释了
 
 #### 1.项目结构
--agenda //根目录
-main.go
+-agenda //根目录</br>
+main.go</br>
 </br>
--- cmd
----  query.go
---- register.go
---- root.go
+-- cmd</br>
+---  query.go</br>
+--- register.go</br>
+--- root.go</br>
 </br>
--- data
----  agenda.log
----  data.json
+-- data</br>
+---  agenda.log</br>
+---  data.json</br>
 </br>
--- entity
----  logger.go
----  meeting.go
----  storage.go
----  user.go
+-- entity</br>
+---  logger.go</br>
+---  meeting.go</br>
+---  storage.go</br>
+---  user.go</br>
 </br>
--- test
----  meeting_test.go
+-- test</br>
+---  meeting_test.go</br>
 </br>
 #### 2.各文件功能
 ##### 1.基本的文件
